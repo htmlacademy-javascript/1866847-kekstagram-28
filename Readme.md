@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Антон Кольцов](https://up.htmlacademy.ru/javascript/28/user/1866847).
-* Наставник: [Олег Цыганов](https://htmlacademy.ru/profile/olegtsyganov).
+* Наставник: [Олег Цыганов](https://htmlacademy.ru/profile/olegtsyganov)
 
 ---
 
