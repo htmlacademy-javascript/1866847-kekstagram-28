@@ -1,3 +1,26 @@
+export const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
+
+export function getRandomValue (min, max) {
+  const previousValue = [];
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValue.length >= (max - min + 1)) {
+      return null;
+    }
+    while (previousValue.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValue.push(currentValue);
+    return currentValue;
+  };
+}
+
+/*
 //Функция для проверки длины строки
 function checkstringLenght(str, maxLength) {
   return String(str).length <= maxLength;
@@ -57,3 +80,4 @@ myPadStart('1', 4, '0');
 myPadStart('q', 4, 'werty');
 myPadStart('q', 4, 'we');
 myPadStart('qwerty', 4, '0');
+*/
