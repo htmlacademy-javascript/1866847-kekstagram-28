@@ -5,7 +5,7 @@ export const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-export function getRandomValue (min, max) {
+export const getRandomValue = (min, max) => {
   const previousValue = [];
   return function () {
     let currentValue = getRandomInteger(min, max);
@@ -18,7 +18,7 @@ export function getRandomValue (min, max) {
     previousValue.push(currentValue);
     return currentValue;
   };
-}
+};
 
 /*
 //Функция для проверки длины строки
