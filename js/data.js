@@ -46,6 +46,7 @@ const URL_MIN = 1;
 const URL_MAX = 25;
 const COMMENT_ID_MIN = 1;
 const COMMENT_ID_MAX = 1000;
+const MAX_COMMENTARIES = 10;
 const DESCRIPTIONS_COUNT = 25;
 
 const commentsGenerator = () => {
@@ -58,6 +59,8 @@ const commentsGenerator = () => {
   };
 };
 
+const createCommentsArray = () => Array.from({length:getRandomInteger(1, MAX_COMMENTARIES)}, commentsGenerator);
+
 const generatePos = () => {
   const photoId = getRandomValue(ID_MIN, ID_MAX);
   const photoUrl = getRandomValue(URL_MIN, URL_MAX);
@@ -66,7 +69,7 @@ const generatePos = () => {
     url: `photos/${photoUrl()}.jpg`,
     description: `${DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)]}`,
     likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-    comments: commentsGenerator()
+    comments: createCommentsArray()
   };
 };
 
