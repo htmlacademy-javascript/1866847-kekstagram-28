@@ -1,3 +1,5 @@
 import {ArrayDescription} from './data.js';
+import {createElement} from './rendering-pictures.js';
 
-ArrayDescription();
+const descriptionData = ArrayDescription();
+createElement(descriptionData);
