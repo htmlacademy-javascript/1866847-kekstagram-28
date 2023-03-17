@@ -8,6 +8,7 @@ export const createElement = (descriptionData) => {
     pictureElement.querySelector('.picture__img').src = Item.url;
     pictureElement.querySelector('.picture__likes').textContent = Item.likes;
     pictureElement.querySelector('.picture__comments').textContent = Item['comments'].length;
+    pictureElement.dataset.id = Item.id;
     createPictures.append(pictureElement);
   });
 

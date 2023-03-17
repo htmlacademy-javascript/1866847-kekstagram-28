@@ -20,6 +20,30 @@ export const getRandomValue = (min, max) => {
   };
 };
 
+export const isEscapeKey = (evt) => evt.key === 'Escape';
+export const isEnterKey = (evt) => evt.key === 'Enter';
+
+const composeElement = (tagName, className, text) => {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  if (text) {
+    element.textContent = text;
+  }
+  return element;
+};
+
+export const fillComment = (array, block) => {
+  array.forEach((item) => {
+    const listItem = composeElement('li', 'social__comment');
+    const picture = composeElement('img', 'social__picture');
+    picture.src = item.avatar;
+    picture.alt = item.name;
+    listItem.appendChild(picture);
+    const commentText = composeElement('p', 'social__text', item.message);
+    listItem.appendChild(commentText);
+    block.appendChild(listItem);
+  });
+};
 /*
 //Функция для проверки длины строки
 function checkstringLenght(str, maxLength) {
