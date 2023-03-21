@@ -5,45 +5,21 @@ export const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-export const getRandomValue = (min, max) => {
-  const previousValue = [];
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValue.length >= (max - min + 1)) {
-      return null;
+export const getRandomValue = (min, max, arr) => {
+  while (min <= max) {
+    const random = getRandomInteger(min, max);
+    if (!arr.includes(random)) {
+      arr.push(random);
+      return random;
     }
-    while (previousValue.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValue.push(currentValue);
-    return currentValue;
-  };
+  }
 };
+
+
+export const getRandomElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
 export const isEscapeKey = (evt) => evt.key === 'Escape';
-export const isEnterKey = (evt) => evt.key === 'Enter';
 
-const composeElement = (tagName, className, text) => {
-  const element = document.createElement(tagName);
-  element.classList.add(className);
-  if (text) {
-    element.textContent = text;
-  }
-  return element;
-};
-
-export const fillComment = (array, block) => {
-  array.forEach((item) => {
-    const listItem = composeElement('li', 'social__comment');
-    const picture = composeElement('img', 'social__picture');
-    picture.src = item.avatar;
-    picture.alt = item.name;
-    listItem.appendChild(picture);
-    const commentText = composeElement('p', 'social__text', item.message);
-    listItem.appendChild(commentText);
-    block.appendChild(listItem);
-  });
-};
 /*
 //Функция для проверки длины строки
 function checkstringLenght(str, maxLength) {
