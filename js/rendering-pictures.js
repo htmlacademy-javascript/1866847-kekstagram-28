@@ -1,15 +1,22 @@
+import {ArrayDescription} from './data.js';
+import {showBigPictrue} from './open-big-picture.js';
+
 const picturesContainer = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const similarArrayDescription = ArrayDescription();
 const createPictures = document.createDocumentFragment();
 
-export const createElement = (descriptionData) => {
-  descriptionData.forEach((Item) => {
-    const pictureElement = picturesTemplate.cloneNode(true);
-    pictureElement.querySelector('.picture__img').src = Item.url;
-    pictureElement.querySelector('.picture__likes').textContent = Item.likes;
-    pictureElement.querySelector('.picture__comments').textContent = Item['comments'].length;
-    createPictures.append(pictureElement);
+similarArrayDescription.forEach(({url, likes, comments, description}) => {
+  const pictureElement = picturesTemplate.cloneNode(true);
+  pictureElement.querySelector('.picture__img').src = url;
+  pictureElement.querySelector('.picture__likes').textContent = likes;
+  pictureElement.querySelector('.picture__comments').textContent = comments.length;
+  pictureElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    showBigPictrue(url, likes, comments, description);
   });
 
-  picturesContainer.append(createPictures);
-};
+  createPictures.append(pictureElement);
+});
+
+picturesContainer.append(createPictures);
