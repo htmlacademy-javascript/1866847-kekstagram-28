@@ -1,5 +1,8 @@
 import {isEscapeKey} from './util.js';
 
+const NUMBER_OF_COMMENTS = 5;
+let FeaturedComments = [];
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const PictureImg = document.querySelector('.big-picture__img');
@@ -25,6 +28,33 @@ const createFullPictureComment = (commentsData) => {
   });
 };
 
+const showComments = (comments) => {
+  const shownComments = comments.slice(0, NUMBER_OF_COMMENTS);
+
+  createFullPictureComment(shownComments);
+  commentsCount.textContent =
+   `${shownComments.length} из ${comments.length} комментариев`;
+
+  if (shownComments.length >= comments.length) {
+    commentsLoader.classList.add('hidden');
+  }
+
+};
+
+const loadComments = () => {
+  const additionalСomments = FeaturedComments
+    .slice(commentsContainer.children.length, commentsContainer.children.length + 5);
+
+  createFullPictureComment(additionalСomments);
+  commentsCount.textContent =
+   `${commentsContainer.children.length} из ${FeaturedComments.length} комментариев`;
+
+  if (FeaturedComments.length <= commentsContainer.children.length) {
+    commentsLoader.classList.add('hidden');
+  }
+
+};
+
 const showBigPictrue = (url, likes, comments, description) => {
   openUserModal();
   PictureImg.querySelector('img').src = url;
@@ -32,7 +62,9 @@ const showBigPictrue = (url, likes, comments, description) => {
   bigPictureComments.textContent = comments.length;
   photoCaption.textContent = description;
   commentsContainer.innerHTML = '';
-  createFullPictureComment(comments);
+  FeaturedComments = comments;
+  commentsLoader.addEventListener('click', loadComments);
+  showComments(comments);
 };
 
 const onDocumentKeydown = (evt) => {
@@ -46,9 +78,6 @@ function openUserModal() {
   bigPicture .classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 }
 
 function closeUserModal() {
@@ -56,8 +85,8 @@ function closeUserModal() {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 
-  commentsCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
+  commentsLoader.removeEventListener('click', loadComments);
 }
 
 cancelBigPicture.addEventListener('click', () =>
