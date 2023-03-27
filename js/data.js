@@ -62,7 +62,8 @@ const generatePost = () => ({
   url: `photos/${getRandomValue(URL_MIN, URL_MAX, IMG_ARRAY)}.jpg`,
   description: getRandomElement(DESCRIPTION),
   likes: getRandomInteger(MIN_LIKES, MAX_LIKES),
-  comments: [commentsGenerator()]
+  // comments: [commentsGenerator()]
+  comments: Array.from({length: getRandomInteger(1, 40)}, commentsGenerator)
 });
 
 const ArrayDescription = () => Array.from({length: DESCRIPTIONS_COUNT}, generatePost);
