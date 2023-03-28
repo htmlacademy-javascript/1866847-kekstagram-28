@@ -1,6 +1,8 @@
 import { isEscapeKey } from './util.js';
+import { pristine } from './form-validate.js';
 
 const body = document.querySelector('body');
+const form = document.querySelector('.img-upload__form');
 const uploadFileInput = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
@@ -36,6 +38,8 @@ function openUserModal() {
 }
 
 function closeUserModal() {
+  form.reset();
+  pristine.reset();
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);

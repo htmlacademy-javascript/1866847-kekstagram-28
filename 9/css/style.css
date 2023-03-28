@@ -1408,3 +1408,12 @@ main {
 .hidden {
   display: none;
 }
+
+/* Ошибка Валидации */
+
+.text__hashtags-error {
+  background-color: #e90000;
+  color: #232321;
+  font-size: 12px;
+  margin-top: -20px;
+}

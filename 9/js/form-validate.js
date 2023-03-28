@@ -2,28 +2,28 @@ import { isEscapeKey } from './util.js';
 
 const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_HASHTAG = 5;
-const Form = document.querySelector('.img-upload__form');
-const hashtagField = Form.querySelector('.text__hashtags');
-const commentFiled = Form.querySelector('.text__description');
+const form = document.querySelector('.img-upload__form');
+const hashtagField = form.querySelector('.text__hashtags');
+const commentFiled = form.querySelector('.text__description');
 
-const pristine = new Pristine(Form, {
+export const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'form__item--invalid',
-  // successClass: 'form__item--valid',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'div',
   errorTextClass: 'text__hashtags-error',
 });
 
-const HashtagValidate = (text) => VALID_HASHTAG.test(text) || text === '';
+const isEmpty = (text) => text.length > 0;
+const hashtagValidate = (text) => VALID_HASHTAG.test(text) || text === '';
 
-const HashtagValidateCount = (text) =>
+const hashtagValidateCount = (text) =>
   text
     .split('')
     .filter((tag) => tag === '#')
     .length <= MAX_HASHTAG;
 
-const HashtagsValidateSimilar = (text) => {
+const hashtagsValidateSimilar = (text) => {
   const textArray = text
     .replaceAll(' ','')
     .toLowerCase()
@@ -33,30 +33,41 @@ const HashtagsValidateSimilar = (text) => {
   return textArray.length === unique.length;
 };
 
+// Валидатор на пустую строку
+pristine.addValidator(
+  hashtagField,
+  isEmpty,
+  'Нельзя оставлять поле пустым!'
+);
+
 // Валидатор на одинаковые хештеги
 pristine.addValidator(
   hashtagField,
-  HashtagsValidateSimilar,
+  hashtagsValidateSimilar,
   'Нельзя использовать одинаковые хештеги!'
 );
 
 // Валидатор правильности хештега
 pristine.addValidator(
   hashtagField,
-  HashtagValidate,
+  hashtagValidate,
   'Не верно введен хештег'
 );
 
 // Валидатор на количество хештегов
 pristine.addValidator(
   hashtagField,
-  HashtagValidateCount,
+  hashtagValidateCount,
   'Допустимое количество хештегов: 5'
 );
 
-Form.addEventListener('submit', () => {
-  // evt.preventDefault();
-  pristine.validate();
+
+form.addEventListener('submit', (evt) => {
+  const valid = pristine.validate();
+  if (valid) {
+    form.submit();
+  }
+  evt.preventDefault();
 });
 
 hashtagField.addEventListener('keydown', (evt) => {
