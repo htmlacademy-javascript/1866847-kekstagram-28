@@ -1,12 +1,12 @@
 import {isEscapeKey} from './util.js';
 
 const NUMBER_OF_COMMENTS = 5;
-let FeaturedComments = [];
+let featuredComments = [];
 
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
-const PictureImg = document.querySelector('.big-picture__img');
-const PictureLikesCount = document.querySelector('.likes-count');
+const pictureImg = document.querySelector('.big-picture__img');
+const pictureLikesCount = document.querySelector('.likes-count');
 const bigPictureComments = document.querySelector('.comments-count');
 const cancelBigPicture = bigPicture.querySelector('#picture-cancel');
 const commentsContainer = document.querySelector('.social__comments');
@@ -42,14 +42,14 @@ const showComments = (comments) => {
 };
 
 const loadComments = () => {
-  const additionalСomments = FeaturedComments
+  const additionalСomments = featuredComments
     .slice(commentsContainer.children.length, commentsContainer.children.length + 5);
 
   createFullPictureComment(additionalСomments);
   commentsCount.textContent =
-   `${commentsContainer.children.length} из ${FeaturedComments.length} комментариев`;
+   `${commentsContainer.children.length} из ${featuredComments.length} комментариев`;
 
-  if (FeaturedComments.length <= commentsContainer.children.length) {
+  if (featuredComments.length <= commentsContainer.children.length) {
     commentsLoader.classList.add('hidden');
   }
 
@@ -57,12 +57,12 @@ const loadComments = () => {
 
 const showBigPictrue = (url, likes, comments, description) => {
   openUserModal();
-  PictureImg.querySelector('img').src = url;
-  PictureLikesCount.textContent = likes;
+  pictureImg.querySelector('img').src = url;
+  pictureLikesCount.textContent = likes;
   bigPictureComments.textContent = comments.length;
   photoCaption.textContent = description;
   commentsContainer.innerHTML = '';
-  FeaturedComments = comments;
+  featuredComments = comments;
   commentsLoader.addEventListener('click', loadComments);
   showComments(comments);
 };

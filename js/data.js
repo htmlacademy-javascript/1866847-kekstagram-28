@@ -66,6 +66,6 @@ const generatePost = () => ({
   comments: Array.from({length: getRandomInteger(1, 40)}, commentsGenerator)
 });
 
-const ArrayDescription = () => Array.from({length: DESCRIPTIONS_COUNT}, generatePost);
+const arrayDescription = () => Array.from({length: DESCRIPTIONS_COUNT}, generatePost);
 
-export{ArrayDescription};
+export{arrayDescription};

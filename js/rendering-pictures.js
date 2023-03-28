@@ -1,9 +1,9 @@
-import {ArrayDescription} from './data.js';
+import {arrayDescription} from './data.js';
 import {showBigPictrue} from './open-big-picture.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarArrayDescription = ArrayDescription();
+const similarArrayDescription = arrayDescription();
 const createPictures = document.createDocumentFragment();
 
 similarArrayDescription.forEach(({url, likes, comments, description}) => {
