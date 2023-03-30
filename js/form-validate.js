@@ -61,6 +61,13 @@ pristine.addValidator(
   'Допустимое количество хештегов: 5'
 );
 
+//Валидация поля textarea
+const validateCommentMin = (text) => text.length > 5;
+pristine.addValidator(
+  commentFiled,
+  validateCommentMin,
+  'Длина комментария не может составлять меньше 5 символов'
+);
 
 form.addEventListener('submit', (evt) => {
   const valid = pristine.validate();

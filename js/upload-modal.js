@@ -8,6 +8,8 @@ const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgEffectsPreview = document.querySelectorAll('.effects__preview');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
+const effectLevelContainer = document.querySelector('.img-upload__effect-level');
+const firstRadioElement = document.querySelector('.effects__radio');
 
 const displayImage = (image) => {
   const img = URL.createObjectURL(image);
@@ -35,6 +37,11 @@ function openUserModal() {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
+  imgUploadPreview.children[0].style.transform = 'scale(1.0)';
+  imgUploadPreview.children[0].className = '';
+  imgUploadPreview.children[0].style.removeProperty('filter');
+  firstRadioElement.value = 'none';
+  effectLevelContainer.classList.add('hidden');
 }
 
 function closeUserModal() {
@@ -49,3 +56,5 @@ function closeUserModal() {
 imgUploadCancel.addEventListener('click', () =>
   closeUserModal()
 );
+
+export { imgUploadPreview , effectLevelContainer };
