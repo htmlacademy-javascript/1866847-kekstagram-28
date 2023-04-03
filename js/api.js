@@ -1,5 +1,7 @@
 import { showAlert } from './util.js';
 
+const imgFilter = document.querySelector('.img-filters');
+
 const BASE_URL = 'https://28.javascript.pages.academy/kekstagram';
 const Routes = {
   GET_DATA: '/data',
@@ -16,6 +18,7 @@ const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Routes.GET_DATA}`)
     .then((response) => {
       if(response.ok) {
+        imgFilter.classList.remove('img-filters--inactive');
         return response.json();
       } else {
         throw new Error();
@@ -53,4 +56,4 @@ const sendData = (onSuccess, onFail, body, finalSubmit) => {
 };
 
 
-export {getData, sendData};
+export { getData, sendData };

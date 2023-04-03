@@ -76,13 +76,11 @@ pristine.addValidator(
 const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
   submitButtonElement.textContent = 'Публикую...';
-
 };
 
 const unblockSubmitButton = () => {
   submitButtonElement.disabled = false;
   submitButtonElement.textContent = 'Опубликовать';
-
 };
 
 const setUserFormSubmit = (onSuccess) => {

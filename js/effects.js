@@ -1,5 +1,9 @@
 import { imgUploadPreview, effectLevelContainer } from './upload-modal.js';
 
+const SCALE_STEP = 25;
+const MIN_SCALE = 25;
+const MAX_SCALE = 100;
+
 const scaleDecrease = document.querySelector('.scale__control--smaller');
 const scaleIncreases = document.querySelector('.scale__control--bigger');
 const scaleValueElement = document.querySelector('.scale__control--value');
@@ -39,24 +43,22 @@ const FILTER_EFFECTS = {
 // Масштаб изображения
 scaleDecrease.addEventListener('click', () => {
   let value = parseInt(scaleValueElement.value, 10);
-  value -= 25;
-  if (value <= 25) {
-    value = 25;
+  value -= SCALE_STEP;
+  if (value <= MIN_SCALE) {
+    value = MIN_SCALE;
   }
   imgPreview.style.transform = `scale(${value / 100})`;
   scaleValueElement.value = `${value}%`;
-
 });
 
 scaleIncreases.addEventListener('click', () => {
   let value = parseInt(scaleValueElement.value, 10);
-  value += 25;
-  if (value >= 100) {
-    value = 100;
+  value += SCALE_STEP;
+  if (value >= MAX_SCALE) {
+    value = MAX_SCALE;
   }
   imgPreview.style.transform = `scale(${value / 100})`;
   scaleValueElement.value = `${value}%`;
-
 });
 
 // Применение эффекта на картинку и параметров слайдера.
