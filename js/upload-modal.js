@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-import { pristine } from './form-validate.js';
+import { pristine, hashtagField, commentField } from './form-validate.js';
 
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
@@ -33,15 +33,20 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openUserModal() {
-  imgUploadOverlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
+const refreshUploadPopup = () => {
   imgUploadPreview.children[0].style.transform = 'scale(1.0)';
   imgUploadPreview.children[0].className = '';
   imgUploadPreview.children[0].style.removeProperty('filter');
   firstRadioElement.value = 'none';
   effectLevelContainer.classList.add('hidden');
+  firstRadioElement.checked = true;
+};
+
+function openUserModal() {
+  imgUploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  document.addEventListener('keydown', onDocumentKeydown);
+  refreshUploadPopup();
 }
 
 function closeUserModal() {
@@ -51,10 +56,13 @@ function closeUserModal() {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   uploadFileInput.value = '';
+  refreshUploadPopup();
+  hashtagField.value = '';
+  commentField.value = '';
 }
 
 imgUploadCancel.addEventListener('click', () =>
   closeUserModal()
 );
 
-export { imgUploadPreview , effectLevelContainer };
+export { imgUploadPreview , effectLevelContainer, closeUserModal, onDocumentKeydown, body, commentField, hashtagField };
