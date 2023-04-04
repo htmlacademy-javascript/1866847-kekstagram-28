@@ -1,6 +1,8 @@
 import { isEscapeKey } from './util.js';
 import { pristine, hashtagField, commentField } from './form-validate.js';
 
+const FORMATS_IMAGES = ['jpg', 'jpeg', 'png'];
+
 const body = document.querySelector('body');
 const form = document.querySelector('.img-upload__form');
 const uploadFileInput = document.querySelector('#upload-file');
@@ -22,7 +24,11 @@ const displayImage = (image) => {
 uploadFileInput.addEventListener('change',() => {
   openUserModal();
   const file = uploadFileInput.files[0];
-  displayImage(file);
+  const fileName = file.name.toLowerCase();
+  const coincidence = FORMATS_IMAGES.some((it) => fileName.endsWith(it));
+  if (coincidence) {
+    displayImage(file);
+  }
 });
 
 const onDocumentKeydown = (evt) => {
