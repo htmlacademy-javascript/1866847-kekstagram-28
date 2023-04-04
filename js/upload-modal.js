@@ -16,7 +16,6 @@ const displayImage = (image) => {
   imgUploadPreview.children[0].src = img;
   imgEffectsPreview.forEach((child) => {
     child.style.backgroundImage = `url(${img})`;
-
   });
 };
 
@@ -65,4 +64,4 @@ imgUploadCancel.addEventListener('click', () =>
   closeUserModal()
 );
 
-export { imgUploadPreview , effectLevelContainer, closeUserModal, onDocumentKeydown, body, commentField, hashtagField };
+export { imgUploadPreview , effectLevelContainer, closeUserModal, onDocumentKeydown, body };
