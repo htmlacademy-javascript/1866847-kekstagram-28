@@ -5,16 +5,16 @@ import { shuffle, debounce } from './util.js';
 const RANDOM_PICS = 10;
 const TIME_DELAY = 500;
 
-const picturesContainer = document.querySelector('.pictures');
-const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const imgFiltersContainer = document.querySelector('.img-filters');
-const imgFilterButtons = document.querySelectorAll('.img-filters__button');
+const picturesContainerElement = document.querySelector('.pictures');
+const picturesTemplateElement = document.querySelector('#picture').content.querySelector('.picture');
+const imgFiltersContainerElement = document.querySelector('.img-filters');
+const imgFilterButtonsElements = document.querySelectorAll('.img-filters__button');
 
 const renderSimilarPosts = (similarArrayDescription) => {
   const similarPostsFragment = document.createDocumentFragment();
 
   similarArrayDescription.forEach(({url, likes, comments, description}) => {
-    const pictureElement = picturesTemplate.cloneNode(true);
+    const pictureElement = picturesTemplateElement.cloneNode(true);
     pictureElement.querySelector('.picture__img').src = url;
     pictureElement.querySelector('.picture__likes').textContent = likes;
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
@@ -27,11 +27,11 @@ const renderSimilarPosts = (similarArrayDescription) => {
     similarPostsFragment.append(pictureElement);
   });
 
-  picturesContainer.append(similarPostsFragment);
+  picturesContainerElement.append(similarPostsFragment);
 };
 
 const buttonActive = (evt) => {
-  imgFilterButtons.forEach((option) => {
+  imgFilterButtonsElements.forEach((option) => {
     if (evt.target.classList.contains('img-filters__button')) {
       option.classList.remove('img-filters__button--active');
     }
@@ -75,6 +75,6 @@ const switchPhotosByFilter = (posts, evt) => {
 
 getData((posts) => {
   renderSimilarPosts(posts);
-  imgFiltersContainer.addEventListener('click', debounce((evt) => switchPhotosByFilter(posts, evt), TIME_DELAY));
-  imgFiltersContainer.addEventListener('click', (evt) => buttonActive(evt));
+  imgFiltersContainerElement.addEventListener('click', debounce((evt) => switchPhotosByFilter(posts, evt), TIME_DELAY));
+  imgFiltersContainerElement.addEventListener('click', (evt) => buttonActive(evt));
 });
