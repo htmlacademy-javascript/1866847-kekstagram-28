@@ -1,16 +1,16 @@
-import { imgUploadPreview, effectLevelContainer } from './upload-modal.js';
+import { imgUploadPreviewElement, effectLevelElement } from './upload-modal.js';
 
 const SCALE_STEP = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 
-const scaleDecrease = document.querySelector('.scale__control--smaller');
-const scaleIncreases = document.querySelector('.scale__control--bigger');
+const scaleDecreaseElement = document.querySelector('.scale__control--smaller');
+const scaleIncreasesElement = document.querySelector('.scale__control--bigger');
 const scaleValueElement = document.querySelector('.scale__control--value');
-const imgPreview = imgUploadPreview.querySelector('img');
-const effectsRadio = document.querySelectorAll('.effects__radio');
+const imgPreview = imgUploadPreviewElement.querySelector('img');
+const effectsRadioElements = document.querySelectorAll('.effects__radio');
 const sliderElement = document.querySelector('.effect-level__slider');
-const sliderEffect = document.querySelector('.effect-level__value');
+const sliderEffectElement = document.querySelector('.effect-level__value');
 
 const FILTER_EFFECTS = {
   'chrome': {
@@ -41,7 +41,7 @@ const FILTER_EFFECTS = {
 };
 
 // Масштаб изображения
-scaleDecrease.addEventListener('click', () => {
+scaleDecreaseElement.addEventListener('click', () => {
   let value = parseInt(scaleValueElement.value, 10);
   value -= SCALE_STEP;
   if (value <= MIN_SCALE) {
@@ -51,7 +51,7 @@ scaleDecrease.addEventListener('click', () => {
   scaleValueElement.value = `${value}%`;
 });
 
-scaleIncreases.addEventListener('click', () => {
+scaleIncreasesElement.addEventListener('click', () => {
   let value = parseInt(scaleValueElement.value, 10);
   value += SCALE_STEP;
   if (value >= MAX_SCALE) {
@@ -62,23 +62,23 @@ scaleIncreases.addEventListener('click', () => {
 });
 
 // Применение эффекта на картинку и параметров слайдера.
-effectsRadio.forEach((element) => {
+effectsRadioElements.forEach((element) => {
   if (element.checked && element.id === 'effect-none'){
-    effectLevelContainer.classList.add('hidden');
+    effectLevelElement.classList.add('hidden');
   }
   element.addEventListener('change', () => {
-    for (let i = 0; i < effectsRadio.length; i++) {
-      const iterableEffectName = effectsRadio[i].id.replace('effect-', '');
+    for (let i = 0; i < effectsRadioElements.length; i++) {
+      const iterableEffectName = effectsRadioElements[i].id.replace('effect-', '');
       imgPreview.classList.remove(`effects__preview--${iterableEffectName}`);
     }
 
     const currentEffectName = element.id.replace('effect-', '');
     if (element.checked) {
       if (element.id !== 'effect-none'){
-        effectLevelContainer.classList.remove('hidden');
+        effectLevelElement.classList.remove('hidden');
       }
       imgPreview.classList.add(`effects__preview--${currentEffectName}`);
-      effectsRadio[0].value = currentEffectName;
+      effectsRadioElements[0].value = currentEffectName;
       if (currentEffectName === 'chrome') {
         sliderElement.noUiSlider.updateOptions({
           range: {
@@ -132,7 +132,7 @@ effectsRadio.forEach((element) => {
       } else {
         imgPreview.style.removeProperty('filter');
         document.querySelector('.effect-level__value').value = '';
-        effectLevelContainer.classList.add('hidden');
+        effectLevelElement.classList.add('hidden');
       }
 
     }
@@ -166,11 +166,11 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   for (let i = 0; i < Object.keys(FILTER_EFFECTS).length; i++) {
     const filterKey = Object.keys(FILTER_EFFECTS)[i];
-    sliderEffect.value = sliderElement.noUiSlider.get();
+    sliderEffectElement.value = sliderElement.noUiSlider.get();
 
-    if (effectsRadio[0].value === filterKey && filterKey !== 'none') {
+    if (effectsRadioElements[0].value === filterKey && filterKey !== 'none') {
       imgPreview.style.filter =
-       `${FILTER_EFFECTS[filterKey].filter}(${sliderEffect.value}${FILTER_EFFECTS[filterKey].measurement})`;
+       `${FILTER_EFFECTS[filterKey].filter}(${sliderEffectElement.value}${FILTER_EFFECTS[filterKey].measurement})`;
     }
   }
 });
